@@ -1,6 +1,9 @@
-package dev.vinicius.CadastroDeNinjas;
+package dev.vinicius.CadastroDeNinjas.Ninjas.Controller;
 
+import dev.vinicius.CadastroDeNinjas.Missoes.MissoesModel;
 import jakarta.persistence.*;
+
+import java.awt.*;
 
 @Entity
 @Table(name = "tb_cadastro")
@@ -10,10 +13,11 @@ public class NinjaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String nome;
-    String email;
-    int idade;
+    private Long id;
+    private String nome;
+    private String email;
+    private int idade;
+    private List<MissoesModel> missoes;
 
     public String getNome() {
         return nome;
