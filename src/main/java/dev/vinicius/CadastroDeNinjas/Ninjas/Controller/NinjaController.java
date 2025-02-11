@@ -1,4 +1,4 @@
-package dev.vinicius.CadastroDeNinjas; // Define o pacote onde a classe está localizada.
+package dev.vinicius.CadastroDeNinjas.Ninjas.Controller; // Define o pacote onde a classe está localizada.
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
