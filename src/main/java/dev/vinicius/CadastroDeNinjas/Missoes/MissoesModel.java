@@ -21,7 +21,9 @@ public class MissoesModel {
 
     // Define um atributo que será mapeado para uma coluna no banco de dados
     private String nomeDaMissao;
+
     private String dificuldade;
+
 
     // Define um relacionamento OneToMany (uma missão pode ter vários ninjas)
     @OneToMany(mappedBy = "missoes")
@@ -40,27 +42,5 @@ public class MissoesModel {
 
     // Métodos getters e setters para acessar e modificar os atributos privados
 
-    public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getNomeDaMissao() {
-        return nomeDaMissao;
-    }
-
-    public void setNomeDaMissao(String nomeDaMissao) {
-        this.nomeDaMissao = nomeDaMissao;
-    }
-
-    public String getDificuldade() {
-        return dificuldade;
-    }
-
-    public void setDificuldade(String dificuldade) {
-        this.dificuldade = dificuldade;
-    }
 }

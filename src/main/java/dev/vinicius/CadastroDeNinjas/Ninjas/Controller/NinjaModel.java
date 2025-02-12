@@ -5,7 +5,6 @@ package dev.vinicius.CadastroDeNinjas.Ninjas.Controller;
 import dev.vinicius.CadastroDeNinjas.Missoes.MissoesModel;
 import jakarta.persistence.*;
 
-import java.awt.*; // ⚠️ Essa importação parece desnecessária e pode ser removida
 
 // Define esta classe como uma entidade do banco de dados
 @Entity
@@ -31,29 +30,7 @@ public class NinjaModel {
 
     // Getters e Setters para acessar e modificar os atributos privados
 
-    public String getNome() {
-        return nome;
-    }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
 
     // Construtor com parâmetros para facilitar a criação de objetos
     public NinjaModel(String nome, String email, int idade) {
