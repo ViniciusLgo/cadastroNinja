@@ -27,7 +27,10 @@ public class NinjaModel {
 
     // Define os atributos que serão colunas na tabela
     private String nome;
+
+    @Column(unique = true)
     private String email;
+
     private int idade;
 
     // Relacionamento com MissoesModel (Muitos ninjas podem estar em uma mesma missão)
