@@ -23,14 +23,21 @@ public class NinjaModel {
     @Id
     // O banco de dados gera o ID automaticamente
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     // Define os atributos que serão colunas na tabela
+    @Column(name = "nome")
     private String nome;
+
 
     @Column(unique = true)
     private String email;
 
+    @Column(name = "img_url")
+    private String imgUrl;
+
+    @Column(name = "idade")
     private int idade;
 
     // Relacionamento com MissoesModel (Muitos ninjas podem estar em uma mesma missão)
