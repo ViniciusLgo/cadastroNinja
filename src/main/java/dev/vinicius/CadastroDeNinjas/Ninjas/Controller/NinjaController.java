@@ -1,5 +1,4 @@
 package dev.vinicius.CadastroDeNinjas.Ninjas.Controller; // Define o pacote onde a classe está localizada.
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,3 +16,4 @@ public class NinjaController { // Declaração da classe Controller.
         return "essa é minha primeira mensaagem nessa roda boas vindo";
     }
 }
+
