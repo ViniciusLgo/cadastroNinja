@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*;
 // Anotação que indica que essa classe é um controlador REST no Spring Boot.
 @RestController
 // Define o mapeamento base para as requisições HTTP.
-@RequestMapping
+@RequestMapping("/ninjas")
 public class NinjaController { // Declaração da classe Controller.
 
     // Mapeia requisições HTTP GET para o endpoint "/boasvindas".
@@ -22,15 +22,15 @@ public class NinjaController { // Declaração da classe Controller.
 
     // procurar por id (create )
 
-    // mostrar os ninjas  ( read)
-    @GetMapping("/todos")
-    public String mostrarTodosOsNinjas(){
-        return "Mostar Ninjas";
+    // listar os ninjas  ( read)
+    @GetMapping("/listar")
+    public String listarTodosOsNinjas(){
+        return "listar Ninjas";
     }
 // mostrar os ninjas por ID  ( read)
-    @GetMapping("/todosID")
-    public String mostrarTodosOsNinjasPorId(){
-        return "Mostar Ninjas por ID";
+    @GetMapping("/listarId")
+    public String listarTodosOsNinjasPorId(){
+        return "Listar Ninjas por ID";
     }
 
     //alterar dados dos ninjas(update)
