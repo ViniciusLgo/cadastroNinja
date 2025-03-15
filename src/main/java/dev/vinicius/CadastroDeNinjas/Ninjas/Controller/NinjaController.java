@@ -1,11 +1,19 @@
 package dev.vinicius.CadastroDeNinjas.Ninjas.Controller; // Define o pacote onde a classe está localizada.
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 // Anotação que indica que essa classe é um controlador REST no Spring Boot.
 @RestController
 // Define o mapeamento base para as requisições HTTP.
 @RequestMapping("/ninjas")
 public class NinjaController { // Declaração da classe Controller.
+
+    private NinjaService ninjaService;
+
+    public NinjaController(NinjaService ninjaService) {
+        this.ninjaService = ninjaService;
+    }
 
     // Mapeia requisições HTTP GET para o endpoint "/boasvindas".
     @GetMapping("/boasvindas")
@@ -22,12 +30,12 @@ public class NinjaController { // Declaração da classe Controller.
 
     // procurar por id (create )
 
-    // listar os ninjas  ( read)
     @GetMapping("/listar")
-    public String listarTodosOsNinjas(){
-        return "listar Ninjas";
+    public List<NinjaModel> listarNinjas() {
+        return ninjaService.listarNinjas();
     }
-// mostrar os ninjas por ID  ( read)
+
+    // mostrar os ninjas por ID  ( read)
     @GetMapping("/listarId")
     public String listarTodosOsNinjasPorId(){
         return "Listar Ninjas por ID";
