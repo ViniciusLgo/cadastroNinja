@@ -2,6 +2,7 @@
 package dev.vinicius.CadastroDeNinjas.Missoes;
 
 // Importação das classes necessárias para trabalhar com persistência de dados no JPA
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.vinicius.CadastroDeNinjas.Ninjas.Controller.NinjaModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -33,6 +34,7 @@ public class MissoesModel {
 
     // Define um relacionamento OneToMany (uma missão pode ter vários ninjas)
     @OneToMany(mappedBy = "missoes")
+    @JsonIgnore
     private List<NinjaModel> ninjas;
 
 
