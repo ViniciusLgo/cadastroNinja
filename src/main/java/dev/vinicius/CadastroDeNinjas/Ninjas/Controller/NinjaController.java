@@ -24,8 +24,8 @@ public class NinjaController { // Declaração da classe Controller.
 
     // add ninja(create)
     @PostMapping("/criar")
-    public String criarNinja() {
-        return "ninja criado";
+    public NinjaModel criarNinja(@RequestBody NinjaModel ninja) {
+        return ninjaService.criarNinja(ninja) ;
     }
 
     // procurar por id (create )

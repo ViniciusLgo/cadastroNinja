@@ -26,6 +26,10 @@ public class NinjaService {
         return NinjaPorId.orElse(null);
     }
 
+    // criar um novo ninja
+    public NinjaModel criarNinja(NinjaModel ninjaModel){
+        return ninjaRepository.save(ninjaModel);
+    }
 
 
 
