@@ -2,32 +2,42 @@ package dev.vinicius.CadastroDeNinjas.Missoes;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+// Define que esta classe é um controlador REST
 @RestController
-@RequestMapping("missoes")
+@RequestMapping("/missoes")
 public class MissoesController {
 
-    // Get - requisao para mostrar missoes
+    // Torna o serviço final, pois ele não será alterado após a injeção
+    private final MissoesService missoesService;
+
+    // Injeta a dependência de MissoesService no construtor
+    public MissoesController(MissoesService missoesService) {
+        this.missoesService = missoesService;
+    }
+
+    // Método GET para listar todas as missões
     @GetMapping("/listar")
-    public String listarMissoes(){
-        return "missoes listadas com sucesso";
+    public List<MissoesModel> listarMissoes() {
+        return missoesService.listarMissoes();
     }
 
-    // Post - requisao para criar missoes
+    // Método POST para criar uma nova missão
     @PostMapping("/criar")
-    public String criarMissao(){
-        return "missao criada com sucesso";
+    public MissoesModel criarMissao(@RequestBody MissoesModel missoes) {
+        return missoesService.criarMissao(missoes);
     }
 
-    // Put - requisao para alterar missoes
-    @PutMapping("/alterar")
-    public String alterarMissao(){
-        return "missao alterada com sucesso";
+    // Método PUT para alterar uma missão - deveria receber um ID e um objeto atualizado
+    @PutMapping("/alterar/{id}")
+    public String alterarMissao() {
+        return "alterado com sucesso";
     }
 
-    // delete - requisao para deletar missoes
-    @DeleteMapping("/delete")
-    public String deletarMissao(){
-        return "missao deletada com sucesso";
+    // Método DELETE para deletar uma missão pelo ID
+    @DeleteMapping("/delete/{id}") // Adicionando o {id} na URL
+    public void deletarMissaoId(@PathVariable Long id) {
+        missoesService.deletarMissoesPorId(id);
     }
-
 }
