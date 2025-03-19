@@ -5,53 +5,50 @@ import java.util.List;
 
 // Anotação que indica que essa classe é um controlador REST no Spring Boot.
 @RestController
-// Define o mapeamento base para as requisições HTTP.
-@RequestMapping("/ninjas")
-public class NinjaController { // Declaração da classe Controller.
+@RequestMapping("/ninjas") // Define o mapeamento base para as requisições HTTP.
+public class NinjaController {
 
-    private NinjaService ninjaService;
+    // Torna o serviço final para garantir que não será alterado após a injeção
+    private final NinjaService ninjaService;
 
+    // Injeta o serviço pelo construtor
     public NinjaController(NinjaService ninjaService) {
         this.ninjaService = ninjaService;
     }
 
-    // Mapeia requisições HTTP GET para o endpoint "/boasvindas".
+    // Método GET para exibir uma mensagem de boas-vindas
     @GetMapping("/boasvindas")
     public String boasVindas() {
-        // Retorna uma mensagem de boas-vindas como resposta à requisição.
-        return "essa é minha primeira mensaagem nessa roda boas vindo";
+        return "Essa é minha primeira mensagem nessa rota, bem-vindo!";
     }
 
-    // add ninja(create)
+    // Método POST para criar um novo ninja
     @PostMapping("/criar")
     public NinjaModel criarNinja(@RequestBody NinjaModel ninja) {
-        return ninjaService.criarNinja(ninja) ;
+        return ninjaService.criarNinja(ninja);
     }
 
-    // procurar por id (create )
-
+    // Método GET para listar todos os ninjas
     @GetMapping("/listar")
     public List<NinjaModel> listarNinjas() {
         return ninjaService.listarNinjas();
     }
 
-    // mostrar os ninjas por ID  ( read)
+    // Método GET para buscar um ninja pelo ID (read)
     @GetMapping("/listar/{id}")
-    public NinjaModel listarNinjasPorId(@PathVariable Long id){
+    public NinjaModel listarNinjasPorId(@PathVariable Long id) {
         return ninjaService.listarNinjasPorId(id);
     }
 
-    //alterar dados dos ninjas(update)
+    // Método PUT para atualizar um ninja (update) - NÃO ALTERADO CONFORME SOLICITAÇÃO
     @PutMapping("/alterarID")
-    public String alterarNinjaId(){
+    public String alterarNinjaId() {
         return "Alterar Ninjas por ID";
     }
 
-    // deletar ninja (delete)
+    // Método DELETE para deletar um ninja pelo ID
     @DeleteMapping("/deletar/{id}")
-    public void deletarNinjaId(@PathVariable Long id){
+    public void deletarNinjaId(@PathVariable Long id) {
         ninjaService.deletarNinjaPorId(id);
     }
-
 }
-
