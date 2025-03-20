@@ -12,6 +12,8 @@ public class NinjaController {
     private final NinjaService ninjaService;
 
     // Injeta o serviço pelo construtor
+
+
     public NinjaController(NinjaService ninjaService) {
         this.ninjaService = ninjaService;
     }
@@ -22,11 +24,11 @@ public class NinjaController {
         return "Essa é minha primeira mensagem nessa rota, bem-vindo!";
     }
 
-    // Método POST para criar um novo ninja
+    // Adicionar ninja (CREATE)
     @PostMapping("/criar")
-    public NinjaModel criarNinja(@RequestBody NinjaModel ninja) {
-        return ninjaService.criarNinja(ninja);
-    }
+        public NinjaDTO criarNinja(@RequestBody NinjaDTO ninja) {
+            return ninjaService.criarNinja(ninja);
+        }
 
     // Método GET para listar todos os ninjas
     @GetMapping("/listar")
