@@ -32,19 +32,19 @@ public class NinjaController {
 
     // Método GET para listar todos os ninjas
     @GetMapping("/listar")
-    public List<NinjaModel> listarNinjas() {
+    public List<NinjaDTO> listarNinjas() {
         return ninjaService.listarNinjas();
     }
 
     // Método GET para buscar um ninja pelo ID (read)
     @GetMapping("/listar/{id}")
-    public NinjaModel listarNinjasPorId(@PathVariable Long id) {
+    public NinjaDTO listarNinjasPorId(@PathVariable Long id) {
         return ninjaService.listarNinjasPorId(id);
     }
 
     // Método PUT para atualizar um ninja (update) - NÃO ALTERADO CONFORME SOLICITAÇÃO
     @PutMapping("/alterar/{id}")
-    public NinjaModel alterarNinjaId(@PathVariable Long id, @RequestBody NinjaModel ninjaAtualizado) {
+    public NinjaDTO alterarNinjaId(@PathVariable Long id, @RequestBody NinjaDTO ninjaAtualizado) {
         return ninjaService.atualizarNinja(id, ninjaAtualizado);
     }
 

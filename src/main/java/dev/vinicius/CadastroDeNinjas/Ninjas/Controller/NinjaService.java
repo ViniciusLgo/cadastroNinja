@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class NinjaService {
@@ -17,37 +18,39 @@ public class NinjaService {
     }
 
     // Listar todos os meus ninjas
-    public List<NinjaModel> listarNinjas(){
-        return ninjaRepository.findAll();
-
+    public List<NinjaDTO> listarNinjas() {
+        List<NinjaModel> ninjas = ninjaRepository.findAll();
+        return ninjas.stream().map(ninjaMapper::map).collect(Collectors.toList());
     }
 
-    // Listas todos os ninjas por ID
-    public NinjaModel listarNinjasPorId(Long id){
+    public NinjaDTO listarNinjasPorId(Long id) {
         Optional<NinjaModel> NinjaPorId = ninjaRepository.findById(id);
-        return NinjaPorId.orElse(null);
+        return NinjaPorId.map(ninjaMapper::map).orElse(null);
     }
 
-    // criar um novo ninja
     public NinjaDTO criarNinja(NinjaDTO ninjaDTO) {
         NinjaModel ninja = ninjaMapper.map(ninjaDTO);
         ninja = ninjaRepository.save(ninja);
         return ninjaMapper.map(ninja);
     }
 
-    // deletar ninja por Id
-    public void deletarNinjaPorId(Long id){
-       ninjaRepository.deleteById(id);
+    public void deletarNinjaPorId(Long id) {
+        ninjaRepository.deleteById(id);
     }
 
     // atualizar ninja por id
-    public NinjaModel atualizarNinja(Long id, NinjaModel ninjaAtualizado){
-        if (ninjaRepository.existsById(id)){
-            return ninjaRepository.save(ninjaAtualizado);
+    public NinjaDTO atualizarNinja(Long id, NinjaDTO ninjaDTO) {
+        Optional<NinjaModel> ninjaExistente = ninjaRepository.findById(id);
+        if (ninjaExistente.isPresent()) {
+            NinjaModel ninja = ninjaExistente.get();
+            ninja.setNome(ninjaDTO.getNome());
+            ninja.setRank(ninjaDTO.getRank());
+            NinjaModel ninjaAtualizado = ninjaMapper.map(ninjaDTO);
+            ninjaAtualizado.setId(id);
+            NinjaModel ninjaSalvo = ninjaRepository.save(ninjaAtualizado);
+            return ninjaMapper.map(ninjaSalvo);
         }
         return null;
-
     }
-
 
 }
