@@ -12,6 +12,8 @@ public class NinjaController {
     private final NinjaService ninjaService;
 
     // Injeta o serviço pelo construtor
+
+
     public NinjaController(NinjaService ninjaService) {
         this.ninjaService = ninjaService;
     }
@@ -22,27 +24,27 @@ public class NinjaController {
         return "Essa é minha primeira mensagem nessa rota, bem-vindo!";
     }
 
-    // Método POST para criar um novo ninja
+    // Adicionar ninja (CREATE)
     @PostMapping("/criar")
-    public NinjaModel criarNinja(@RequestBody NinjaModel ninja) {
-        return ninjaService.criarNinja(ninja);
-    }
+        public NinjaDTO criarNinja(@RequestBody NinjaDTO ninja) {
+            return ninjaService.criarNinja(ninja);
+        }
 
     // Método GET para listar todos os ninjas
     @GetMapping("/listar")
-    public List<NinjaModel> listarNinjas() {
+    public List<NinjaDTO> listarNinjas() {
         return ninjaService.listarNinjas();
     }
 
     // Método GET para buscar um ninja pelo ID (read)
     @GetMapping("/listar/{id}")
-    public NinjaModel listarNinjasPorId(@PathVariable Long id) {
+    public NinjaDTO listarNinjasPorId(@PathVariable Long id) {
         return ninjaService.listarNinjasPorId(id);
     }
 
     // Método PUT para atualizar um ninja (update) - NÃO ALTERADO CONFORME SOLICITAÇÃO
     @PutMapping("/alterar/{id}")
-    public NinjaModel alterarNinjaId(@PathVariable Long id, @RequestBody NinjaModel ninjaAtualizado) {
+    public NinjaDTO alterarNinjaId(@PathVariable Long id, @RequestBody NinjaDTO ninjaAtualizado) {
         return ninjaService.atualizarNinja(id, ninjaAtualizado);
     }
 
