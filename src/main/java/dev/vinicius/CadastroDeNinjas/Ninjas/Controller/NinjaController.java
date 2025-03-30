@@ -1,56 +1,73 @@
-package dev.vinicius.CadastroDeNinjas.Ninjas.Controller; // Define o pacote onde a classe está localizada.
+package dev.vinicius.CadastroDeNinjas.Ninjas.Controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-// Anotação que indica que essa classe é um controlador REST no Spring Boot.
 @RestController
-@RequestMapping("/ninjas") // Define o mapeamento base para as requisições HTTP.
+@RequestMapping("/ninjas")
 public class NinjaController {
 
-    // Torna o serviço final para garantir que não será alterado após a injeção
     private final NinjaService ninjaService;
-
-    // Injeta o serviço pelo construtor
-
 
     public NinjaController(NinjaService ninjaService) {
         this.ninjaService = ninjaService;
     }
 
-    // Método GET para exibir uma mensagem de boas-vindas
+    // Mensagem de boas-vindas
     @GetMapping("/boasvindas")
-    public String boasVindas() {
-        return "Essa é minha primeira mensagem nessa rota, bem-vindo!";
+    public ResponseEntity<String> boasVindas() {
+        return ResponseEntity.ok("Essa é minha primeira mensagem nessa rota, bem-vindo!");
     }
 
-    // Adicionar ninja (CREATE)
+    // Criar ninja
     @PostMapping("/criar")
-        public NinjaDTO criarNinja(@RequestBody NinjaDTO ninja) {
-            return ninjaService.criarNinja(ninja);
-        }
+    public ResponseEntity<String> criarNinja(@RequestBody NinjaDTO ninja) {
+        NinjaDTO novoNinja = ninjaService.criarNinja(ninja);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("Ninja criada com sucesso! " + novoNinja.getNome() + " ID - " + novoNinja.getId());
+    }
 
-    // Método GET para listar todos os ninjas
+    // Listar todos os ninjas
     @GetMapping("/listar")
-    public List<NinjaDTO> listarNinjas() {
-        return ninjaService.listarNinjas();
+    public ResponseEntity<List<NinjaDTO>> listarNinjas() {
+        List<NinjaDTO> lista = ninjaService.listarNinjas();
+        return ResponseEntity.ok(lista);
     }
 
-    // Método GET para buscar um ninja pelo ID (read)
+    // Buscar ninja por ID
     @GetMapping("/listar/{id}")
-    public NinjaDTO listarNinjasPorId(@PathVariable Long id) {
-        return ninjaService.listarNinjasPorId(id);
+    public ResponseEntity<?> listarNinjasPorId(@PathVariable Long id) {
+        NinjaDTO ninja = ninjaService.listarNinjasPorId(id);
+        if (ninja != null) {
+            return ResponseEntity.ok(ninja);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ninja nao encontrado");
+        }
     }
 
-    // Método PUT para atualizar um ninja (update) - NÃO ALTERADO CONFORME SOLICITAÇÃO
+    // Atualizar ninja por ID
     @PutMapping("/alterar/{id}")
-    public NinjaDTO alterarNinjaId(@PathVariable Long id, @RequestBody NinjaDTO ninjaAtualizado) {
-        return ninjaService.atualizarNinja(id, ninjaAtualizado);
+    public ResponseEntity<?> alterarNinjaId(@PathVariable Long id, @RequestBody NinjaDTO ninjaAtualizado) {
+        NinjaDTO atualizado = ninjaService.atualizarNinja(id, ninjaAtualizado);
+        if (atualizado != null) {
+            return ResponseEntity.ok(atualizado);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ninja nao encontrado");
+        }
     }
 
-    // Método DELETE para deletar um ninja pelo ID
+    // Deletar ninja por ID
     @DeleteMapping("/deletar/{id}")
-    public void deletarNinjaId(@PathVariable Long id) {
-        ninjaService.deletarNinjaPorId(id);
+    public ResponseEntity<String> deletarNinjaId(@PathVariable Long id) {
+        if (ninjaService.listarNinjasPorId(id) != null) {
+            ninjaService.deletarNinjaPorId(id);
+            return ResponseEntity.ok("Ninja deletado com sucesso! ID - " + id);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Ninja com ID " + id + " não encontrado para deletar.");
+        }
     }
 }
