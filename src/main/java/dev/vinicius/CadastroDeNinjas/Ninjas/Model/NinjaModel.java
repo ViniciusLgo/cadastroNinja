@@ -1,52 +1,52 @@
-// Define o pacote onde esta classe está localizada
 package dev.vinicius.CadastroDeNinjas.Ninjas.Controller;
 
-// Importações necessárias para a persistência de dados e relacionamento com outra entidade
 import dev.vinicius.CadastroDeNinjas.Missoes.MissoesModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-// Define esta classe como uma entidade do banco de dados
+/**
+ * Entidade que representa o cadastro de ninjas no banco de dados.
+ */
 @Entity
-// Define que esta entidade será representada na tabela "tb_cadastro" no banco de dados
-@Table(name = "tb_cadastro")
+@Table(name = "tb_cadastro") // Nome da tabela no banco de dados
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class NinjaModel {
 
-    // Define a chave primária da tabela
+    // Chave primária da entidade
     @Id
-    // O banco de dados gera o ID automaticamente
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    // Define os atributos que serão colunas na tabela
+    // Nome do ninja
     @Column(name = "nome")
     private String nome;
 
-
+    // E-mail do ninja (único)
     @Column(unique = true)
     private String email;
 
+    // URL da imagem do ninja
     @Column(name = "img_url")
     private String imgUrl;
 
+    // Rank do ninja (Ex: Genin, Chunin, Jounin)
     @Column(name = "rank")
     private String rank;
 
+    // Idade do ninja
     @Column(name = "idade")
     private int idade;
 
-    // Relacionamento com MissoesModel (Muitos ninjas podem estar em uma mesma missão)
+    /**
+     * Relacionamento ManyToOne com Missao.
+     * Muitos ninjas podem estar vinculados à mesma missão.
+     */
     @ManyToOne
     @JoinColumn(name = "missao_id") // Nome da chave estrangeira no banco
     private MissoesModel missoes;
-
-
 }
