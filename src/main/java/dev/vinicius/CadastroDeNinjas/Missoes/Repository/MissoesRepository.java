@@ -1,5 +1,6 @@
-package dev.vinicius.CadastroDeNinjas.Missoes;
+package dev.vinicius.CadastroDeNinjas.Missoes.Repository;
 
+import dev.vinicius.CadastroDeNinjas.Missoes.Model.MissoesModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
