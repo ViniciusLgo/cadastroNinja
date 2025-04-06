@@ -1,5 +1,9 @@
-package dev.vinicius.CadastroDeNinjas.Ninjas.Controller;
+package dev.vinicius.CadastroDeNinjas.Ninjas.Service;
 
+import dev.vinicius.CadastroDeNinjas.Ninjas.DTO.NinjaDTO;
+import dev.vinicius.CadastroDeNinjas.Ninjas.Mapper.NinjaMapper;
+import dev.vinicius.CadastroDeNinjas.Ninjas.Model.NinjaModel;
+import dev.vinicius.CadastroDeNinjas.Ninjas.Repository.NinjaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
