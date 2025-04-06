@@ -1,6 +1,6 @@
-package dev.vinicius.CadastroDeNinjas.Ninjas.Controller;
+package dev.vinicius.CadastroDeNinjas.Ninjas.Mapper;
 
-import dev.vinicius.CadastroDeNinjas.Missoes.MissoesModel;
+import dev.vinicius.CadastroDeNinjas.Ninjas.DTO.NinjaDTO;
 import dev.vinicius.CadastroDeNinjas.Ninjas.Model.NinjaModel;
 import org.springframework.stereotype.Component;
 
