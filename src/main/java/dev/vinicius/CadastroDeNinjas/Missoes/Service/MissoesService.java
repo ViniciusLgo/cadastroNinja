@@ -1,5 +1,7 @@
-package dev.vinicius.CadastroDeNinjas.Missoes;
+package dev.vinicius.CadastroDeNinjas.Missoes.Service;
 
+import dev.vinicius.CadastroDeNinjas.Missoes.Model.MissoesModel;
+import dev.vinicius.CadastroDeNinjas.Missoes.Repository.MissoesRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
