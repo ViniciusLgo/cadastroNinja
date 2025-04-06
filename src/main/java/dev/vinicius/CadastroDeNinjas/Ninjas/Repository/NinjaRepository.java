@@ -1,6 +1,6 @@
-package dev.vinicius.CadastroDeNinjas.Ninjas.Controller;
+package dev.vinicius.CadastroDeNinjas.Ninjas.Repository;
 
-import dev.vinicius.CadastroDeNinjas.Ninjas.Controller.NinjaModel;
+import dev.vinicius.CadastroDeNinjas.Ninjas.Model.NinjaModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
