@@ -1,4 +1,4 @@
-package dev.vinicius.CadastroDeNinjas.Missoes;
+package dev.vinicius.CadastroDeNinjas.Missoes.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.vinicius.CadastroDeNinjas.Ninjas.Model.NinjaModel;
