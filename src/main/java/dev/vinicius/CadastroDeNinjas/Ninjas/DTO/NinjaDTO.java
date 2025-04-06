@@ -1,6 +1,6 @@
-package dev.vinicius.CadastroDeNinjas.Ninjas.Controller;
+package dev.vinicius.CadastroDeNinjas.Ninjas.DTO;
 
-import dev.vinicius.CadastroDeNinjas.Missoes.MissoesModel;
+import dev.vinicius.CadastroDeNinjas.Missoes.Model.MissoesModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
