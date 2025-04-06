@@ -1,5 +1,7 @@
-package dev.vinicius.CadastroDeNinjas.Missoes;
+package dev.vinicius.CadastroDeNinjas.Missoes.Controller;
 
+import dev.vinicius.CadastroDeNinjas.Missoes.Model.MissoesModel;
+import dev.vinicius.CadastroDeNinjas.Missoes.Service.MissoesService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
