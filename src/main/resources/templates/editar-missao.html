@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Ninja</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+    <h1>✏️ Editar Ninja - Aldeia da Folha 🌿</h1>
+</header>
+
+<div class="form-container">
+    <form th:action="@{'/ninjas/ui/editar/' + ${ninja.id}}" method="post" th:object="${ninja}">
+        <input type="hidden" th:field="*{id}"/>
+
+        <label>Nome:</label>
+        <input type="text" th:field="*{nome}" required/>
+
+        <label>Email:</label>
+        <input type="email" th:field="*{email}" required/>
+
+        <label>Idade:</label>
+        <input type="number" th:field="*{idade}" required/>
+
+        <label>Rank:</label>
+        <input type="text" th:field="*{rank}" required/>
+
+        <label>URL da Imagem:</label>
+        <input type="text" th:field="*{imgUrl}" required/>
+
+        <label>ID da Missão:</label>
+        <input type="number" th:field="*{missoes.id}" />
+
+        <button type="submit">💾 Salvar Alterações</button>
+        <a th:href="@{/ninjas/ui/listar}" class="btn">🔙 Voltar</a>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Missões Ninja</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+
+<header>
+    <h1>Missões da Aldeia 🌌</h1>
+</header>
+
+<a th:href="@{/missoes/ui/novo}" class="add-button">➕ Nova Missão</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Dificuldade</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="m : ${missoes}">
+        <td th:text="${m.id}"></td>
+        <td th:text="${m.nomeDaMissao}"></td>
+        <td th:text="${m.dificuldade}"></td>
+        <td>
+            <a th:href="@{'/missoes/ui/' + ${m.id}}">👁 Ver</a>
+            <form th:action="@{'/missoes/ui/deletar/' + ${m.id}}" method="post" style="display:inline;">
+                <button type="submit" onclick="return confirm('Confirmar remoção?')">🗑️ Deletar</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Ninjas</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<header>
+    <h1>Cadastro Ninja - Aldeia da Folha 🌿</h1>
+</header>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Imagem</th>
+        <th>Ninja</th>
+        <th>Nome</th>
+        <th>Idade</th>
+        <th>Email</th>
+        <th>Rank</th>
+        <th>Missão</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ninja : ${ninjas}">
+        <td th:text="${ninja.id}"></td>
+        <td><img th:src="${ninja.imgUrl}" alt="Imagem do Ninja"></td>
+        <td th:text="'Ninja #' + ${ninja.id}"></td>
+        <td th:text="${ninja.nome}"></td>
+        <td th:text="${ninja.idade}"></td>
+        <td th:text="${ninja.email}"></td>
+        <td th:text="${ninja.rank}"></td>
+        <td th:text="${ninja.missoes != null ? ninja.missoes.nomeDaMissao : 'Sem missão'}"></td>
+        <td>
+            <a th:href="@{'/ninjas/ui/' + ${ninja.id}}" class="btn view">👁 Ver</a>
+            <a th:href="@{'/ninjas/ui/editar/' + ${ninja.id}}" class="btn edit">✏️ Editar</a>
+            <form th:action="@{'/ninjas/ui/deletar/' + ${ninja.id}}" method="post" style="display:inline;">
+                <button type="submit" class="btn delete" onclick="return confirm('Deseja realmente deletar?')">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<footer>
+    Projeto inspirado no universo de Naruto | Desenvolvido por você 🦊
+</footer>
+
+</body>
+</html>
