@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Missões</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+<header>
+    <h1>📜 Lista de Missões</h1>
+    <nav>
+        <a href="/ninjas/ui/listar">🏯 Ninjas</a>
+        <a href="/missoes/ui/listar">📜 Missões</a>
+        <a href="/missoes/ui/criar">➕ Nova Missão</a>
+    </nav>
+</header>
+
+<table>
+    <thead>
+    <tr><th>ID</th><th>Nome</th><th>Dificuldade</th><th>Ações</th></tr>
+    </thead>
+    <tbody>
+    <tr th:each="missao : ${missoes}">
+        <td th:text="${missao.id}"></td>
+        <td th:text="${missao.nomeDaMissao}"></td>
+        <td th:text="${missao.dificuldade}"></td>
+        <td>
+            <a th:href="@{'/missoes/ui/' + ${missao.id}}">👁 Ver</a>
+            <a th:href="@{'/missoes/ui/editar/' + ${missao.id}}">✏️ Editar</a>
+            <form th:action="@{'/missoes/ui/deletar/' + ${missao.id}}" method="post" style="display:inline;">
+                <button type="submit" onclick="return confirm('Confirmar exclusão?')">🗑</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<footer>🍥 Missões da Vila da Folha com estilo ninja</footer>
+</body>
+</html>
