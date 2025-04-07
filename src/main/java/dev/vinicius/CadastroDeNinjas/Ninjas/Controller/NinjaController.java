@@ -2,68 +2,81 @@ package dev.vinicius.CadastroDeNinjas.Ninjas.Controller;
 
 import dev.vinicius.CadastroDeNinjas.Ninjas.DTO.NinjaDTO;
 import dev.vinicius.CadastroDeNinjas.Ninjas.Service.NinjaService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Controlador responsável pelos endpoints da entidade Ninja.
- */
 @RestController
 @RequestMapping("/ninjas")
 public class NinjaController {
 
     private final NinjaService ninjaService;
 
-    /**
-     * Construtor com injeção de dependência do serviço.
-     */
     public NinjaController(NinjaService ninjaService) {
         this.ninjaService = ninjaService;
     }
 
-    /**
-     * Endpoint de teste para confirmar funcionamento da API.
-     */
     @GetMapping("/boasvindas")
+    @Operation(
+            summary = "Mensagem de boas-vindas",
+            description = "Rota de teste para verificar o funcionamento da API."
+    )
     public ResponseEntity<String> boasVindas() {
         return ResponseEntity.ok("Essa é minha primeira mensagem nessa rota, bem-vindo!");
     }
 
-    /**
-     * Cria um novo ninja.
-     *
-     * @param ninja DTO com os dados do ninja a ser criado.
-     * @return mensagem com confirmação da criação.
-     */
     @PostMapping("/criar")
-    public ResponseEntity<String> criarNinja(@RequestBody NinjaDTO ninja) {
+    @Operation(
+            summary = "Criar um novo ninja",
+            description = "Cria um novo ninja no sistema com nome, idade, e-mail e rank."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Ninja criado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content)
+    })
+    public ResponseEntity<String> criarNinja(
+            @RequestBody(
+                    description = "Dados do ninja a ser criado",
+                    required = true,
+                    content = @Content(schema = @Schema(implementation = NinjaDTO.class))
+            )
+            @org.springframework.web.bind.annotation.RequestBody NinjaDTO ninja
+    ) {
         NinjaDTO novoNinja = ninjaService.criarNinja(ninja);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("Ninja criado com sucesso! Nome: " + novoNinja.getNome() + " | ID: " + novoNinja.getId());
     }
 
-    /**
-     * Lista todos os ninjas cadastrados.
-     *
-     * @return lista de ninjas.
-     */
     @GetMapping("/listar")
+    @Operation(
+            summary = "Listar todos os ninjas",
+            description = "Retorna uma lista com todos os ninjas cadastrados no sistema."
+    )
     public ResponseEntity<List<NinjaDTO>> listarNinjas() {
-        List<NinjaDTO> lista = ninjaService.listarNinjas();
-        return ResponseEntity.ok(lista);
+        return ResponseEntity.ok(ninjaService.listarNinjas());
     }
 
-    /**
-     * Busca um ninja pelo ID.
-     *
-     * @param id identificador do ninja.
-     * @return ninja encontrado ou mensagem de erro.
-     */
     @GetMapping("/listar/{id}")
-    public ResponseEntity<?> listarNinjasPorId(@PathVariable Long id) {
+    @Operation(
+            summary = "Buscar ninja por ID",
+            description = "Retorna os dados de um ninja específico com base no ID informado."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Ninja encontrado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Ninja não encontrado", content = @Content)
+    })
+    public ResponseEntity<?> listarNinjasPorId(
+            @Parameter(description = "ID do ninja a ser consultado") @PathVariable Long id
+    ) {
         NinjaDTO ninja = ninjaService.listarNinjasPorId(id);
         if (ninja != null) {
             return ResponseEntity.ok(ninja);
@@ -73,15 +86,24 @@ public class NinjaController {
         }
     }
 
-    /**
-     * Atualiza um ninja existente com base no ID.
-     *
-     * @param id identificador do ninja.
-     * @param ninjaAtualizado dados atualizados do ninja.
-     * @return ninja atualizado ou mensagem de erro.
-     */
     @PutMapping("/alterar/{id}")
-    public ResponseEntity<?> alterarNinjaId(@PathVariable Long id, @RequestBody NinjaDTO ninjaAtualizado) {
+    @Operation(
+            summary = "Atualizar ninja por ID",
+            description = "Atualiza os dados de um ninja existente com base no ID informado."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Ninja atualizado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Ninja não encontrado", content = @Content)
+    })
+    public ResponseEntity<?> alterarNinjaId(
+            @Parameter(description = "ID do ninja que será atualizado") @PathVariable Long id,
+            @RequestBody(
+                    description = "Dados atualizados do ninja",
+                    required = true,
+                    content = @Content(schema = @Schema(implementation = NinjaDTO.class))
+            )
+            @org.springframework.web.bind.annotation.RequestBody NinjaDTO ninjaAtualizado
+    ) {
         NinjaDTO atualizado = ninjaService.atualizarNinja(id, ninjaAtualizado);
         if (atualizado != null) {
             return ResponseEntity.ok(atualizado);
@@ -91,14 +113,18 @@ public class NinjaController {
         }
     }
 
-    /**
-     * Deleta um ninja com base no ID.
-     *
-     * @param id identificador do ninja.
-     * @return mensagem de sucesso ou erro.
-     */
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<String> deletarNinjaId(@PathVariable Long id) {
+    @Operation(
+            summary = "Deletar ninja por ID",
+            description = "Remove um ninja do sistema com base no ID informado."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Ninja deletado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Ninja não encontrado", content = @Content)
+    })
+    public ResponseEntity<String> deletarNinjaId(
+            @Parameter(description = "ID do ninja a ser deletado") @PathVariable Long id
+    ) {
         if (ninjaService.listarNinjasPorId(id) != null) {
             ninjaService.deletarNinjaPorId(id);
             return ResponseEntity.ok("Ninja deletado com sucesso! ID: " + id);
