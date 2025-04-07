@@ -1,141 +1,99 @@
-# 🥷 CadastroDeNinjas
+# 🥷 Sistema de Cadastro de Ninjas
 
-Sistema web de gerenciamento de Ninjas e Missões, inspirado no universo **Naruto**, desenvolvido com **Spring Boot + Thymeleaf**. A proposta é oferecer uma interface estilizada, interativa e funcional para registrar, listar, editar e visualizar informações de ninjas e suas respectivas missões.
+Bem-vindo ao **Sistema de Cadastro de Ninjas**!  
+Este projeto é uma aplicação com arquitetura em camadas desenvolvida com **Spring Boot**, projetada para cadastrar ninjas e suas respectivas missões.
 
-> 📚 Projeto desenvolvido durante as aulas do **Curso Java10X** do **Fiasco**.
-
----
-
-## 🔥 Funcionalidades
-
-### Ninja 🥷
-- Listar ninjas cadastrados
-- Criar novo ninja (com nome, vila, ranking, especialidade, etc.)
-- Editar informações de um ninja
-- Visualizar detalhes completos do ninja
-- Deletar ninja
-
-### Missão 🎯
-- Listar missões registradas
-- Criar nova missão (com título, descrição, nível, status, etc.)
-- Editar missão existente
-- Visualizar detalhes completos da missão
-- Deletar missão
+> 📚 Projeto desenvolvido com base no **Curso Java10X** do **Fiasco** e com apoio de aulas complementares do **Horácio Muller**.  
+> 🔗 Repositório original: [github.com/horaciomuller/CadastroDeNinjas](https://github.com/horaciomuller/CadastroDeNinjas)
 
 ---
 
-## 🎨 Estilo Visual
+## 🔍 Visão Geral do Projeto
 
-- Tema visual escuro com **inspiração no clã Uchiha**
-- Tipografia com estilo ninja
-- Ícones personalizados para ações (editar, excluir, voltar)
-- Paleta baseada em tons de cinza, vermelho e detalhes em chakra azul
+Este sistema foi desenvolvido para gerenciar **Ninjas** e suas **Missões**.  
+Cada **Ninja pode ser atribuído a uma única Missão**, enquanto uma **Missão pode ser associada a vários Ninjas**.
+
+### Funcionalidades:
+- Cadastro de ninjas com nome, idade, e-mail e rank
+- Cadastro de missões com título e descrição
+- Atribuição de uma missão para um ninja
+- Listagem, visualização, edição e exclusão de ninjas e missões
+- Relacionamento 1:N (missão → ninjas)
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Java 17**
-- **Spring Boot 3**
-- **Thymeleaf**
-- **Spring Web MVC**
-- **Spring Data JPA**
-- **H2 Database (modo dev)**
-- **Bootstrap (customizado)**
-- **CSS puro com animações**
+- **Spring Boot**: Framework principal da aplicação
+- **Spring Data JPA**: Integração com banco de dados via ORM
+- **Banco de Dados H2**: Banco de dados em memória (ambiente dev)
+- **Flyway**: Controle de versões do banco de dados (migrações)
+- **Maven**: Build e gerenciamento de dependências
+- **Docker**: (Opcional) Para ambiente externo com banco persistente
+- **SQL**: Manipulação e consultas de dados
+- **Git & GitHub**: Versionamento de código
 
 ---
 
-## 💻 Estrutura do Projeto
+## 🧩 Design do Banco de Dados
 
-```bash
-CadastroDeNinjas
-├── src
-│   └── main
-│       ├── java
-│       │   └── dev.vinicius.CadastroDeNinjas
-│       │       ├── Ninjas
-│       │       │   ├── Controller
-│       │       │   └── Model
-│       │       └── Missoes
-│       │           ├── Controller
-│       │           └── Model
-│       └── resources
-│           ├── static
-│           │   └── css
-│           │       └── estilo.css
-│           └── templates
-│               ├── criar-ninja.html
-│               ├── editar-ninja.html
-│               ├── listar-ninjas.html
-│               ├── detalhes-ninja.html
-│               ├── criar-missao.html
-│               ├── editar-missao.html
-│               ├── listar-missoes.html
-│               └── detalhes-missao.html
-```
+**Entidades e Relacionamentos**:
+
+- **Ninja**:
+  - `id` (UUID)
+  - `nome`
+  - `idade`
+  - `email`
+  - `rank`
+  - `missao_id` (chave estrangeira)
+
+- **Missão**:
+  - `id` (UUID)
+  - `titulo`
+  - `descricao`
+
+🔗 Relação: **Uma missão pode ter vários ninjas** (1:N)
 
 ---
 
-## 📸 Prints do Sistema
-
-> 💡 _Adicione aqui imagens dos principais recursos da aplicação:_
-
-```markdown
-![Listagem de Ninjas](prints/listar-ninjas.png)
-![Criação de Missão](prints/criar-missao.png)
-```
-
----
-
-## 🚀 Como Executar Localmente
+## 🚀 Como Executar o Projeto
 
 1. Clone o repositório:
    ```bash
    git clone https://github.com/viniciuslago/CadastroDeNinjas.git
    ```
 
-2. Navegue até o projeto e abra no seu editor favorito.
-
-3. Execute a aplicação:
-   - Via terminal:
-     ```bash
-     ./mvnw spring-boot:run
-     ```
-   - Ou diretamente pela sua IDE (IntelliJ, VS Code...)
-
-4. Acesse o sistema em:
-   ```
-   http://localhost:8080/ninjas/ui
+2. Navegue até o projeto:
+   ```bash
+   cd CadastroDeNinjas
    ```
 
----
+3. Construa o projeto:
+   ```bash
+   mvn clean install
+   ```
 
-## 🧪 Banco de Dados H2 (modo dev)
+4. Execute a aplicação:
+   ```bash
+   mvn spring-boot:run
+   ```
 
-- URL: `http://localhost:8080/h2-console`
-- JDBC URL: `jdbc:h2:mem:testdb`
-- Usuário: `sa`
-- Senha: _(deixe em branco)_
-
----
-
-## 📂 Melhorias Futuras (TODO)
-
-- [ ] Adicionar autenticação com Spring Security
-- [ ] Relacionar ninja com missão
-- [ ] Exportar dados em PDF
-- [ ] Adicionar responsividade mobile
-- [ ] Filtros, paginação e busca por nome/vila
+5. Acesse no navegador:
+   ```
+   http://localhost:8080
+   ```
 
 ---
 
-## 🤝 Contribuições
+## 🙏 Agradecimentos
 
-Sinta-se à vontade para abrir issues, sugerir melhorias ou enviar PRs!  
-Este projeto é um aprendizado em constante evolução.
+Este projeto foi construído com base nas aulas do:
+
+- **Curso Java10X** do [Fiasco](https://www.youtube.com/@fiascodev)
+- E nas aulas complementares de banco de dados com o professor **Horácio Muller**
+
+Muito obrigado aos criadores de conteúdo que tornam o aprendizado mais acessível e prático! 💙
 
 ---
 
-Feito com 💙 e chakra por [Vinicius Lago](https://github.com/viniciuslago)  
-Inspirado nas aulas do **Curso Java10X do Fiasco**
+Feito com 💻, 🧠 e 🥷 por [Vinicius Lago](https://github.com/viniciuslago)
