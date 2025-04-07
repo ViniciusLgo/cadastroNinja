@@ -2,15 +2,19 @@ package dev.vinicius.CadastroDeNinjas.Missoes.Controller;
 
 import dev.vinicius.CadastroDeNinjas.Missoes.Model.MissoesModel;
 import dev.vinicius.CadastroDeNinjas.Missoes.Service.MissoesService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Controlador responsável pelos endpoints da entidade Missão.
- */
 @RestController
 @RequestMapping("/missoes")
 public class MissoesController {
@@ -21,38 +25,55 @@ public class MissoesController {
         this.missoesService = missoesService;
     }
 
-    /**
-     * Endpoint GET para listar todas as missões.
-     *
-     * @return lista de Missões.
-     */
     @GetMapping("/listar")
+    @Operation(
+            summary = "Listar todas as missões",
+            description = "Retorna uma lista com todas as missões cadastradas no sistema."
+    )
     public ResponseEntity<List<MissoesModel>> listarMissoes() {
         List<MissoesModel> lista = missoesService.listarMissoes();
         return ResponseEntity.ok(lista);
     }
 
-    /**
-     * Endpoint POST para criar uma nova missão.
-     *
-     * @param missoes dados da missão.
-     * @return missão criada.
-     */
     @PostMapping("/criar")
-    public ResponseEntity<MissoesModel> criarMissao(@RequestBody MissoesModel missoes) {
+    @Operation(
+            summary = "Criar uma nova missão",
+            description = "Cadastra uma nova missão com título, descrição e nível."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Missão criada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos", content = @Content)
+    })
+    public ResponseEntity<MissoesModel> criarMissao(
+            @RequestBody(
+                    description = "Dados da missão a ser criada",
+                    required = true,
+                    content = @Content(schema = @Schema(implementation = MissoesModel.class))
+            )
+            @org.springframework.web.bind.annotation.RequestBody MissoesModel missoes
+    ) {
         MissoesModel nova = missoesService.criarMissao(missoes);
         return ResponseEntity.status(HttpStatus.CREATED).body(nova);
     }
 
-    /**
-     * Endpoint PUT para atualizar uma missão pelo ID.
-     *
-     * @param id      ID da missão a ser atualizada.
-     * @param atualizada objeto com dados novos da missão.
-     * @return missão atualizada ou mensagem de erro.
-     */
     @PutMapping("/alterar/{id}")
-    public ResponseEntity<?> alterarMissao(@PathVariable Long id, @RequestBody MissoesModel atualizada) {
+    @Operation(
+            summary = "Atualizar missão por ID",
+            description = "Atualiza uma missão existente com base no ID informado."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Missão atualizada com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Missão não encontrada", content = @Content)
+    })
+    public ResponseEntity<?> alterarMissao(
+            @Parameter(description = "ID da missão a ser atualizada") @PathVariable Long id,
+            @RequestBody(
+                    description = "Dados atualizados da missão",
+                    required = true,
+                    content = @Content(schema = @Schema(implementation = MissoesModel.class))
+            )
+            @org.springframework.web.bind.annotation.RequestBody MissoesModel atualizada
+    ) {
         MissoesModel alterada = missoesService.atualizarMissao(id, atualizada);
         if (alterada != null) {
             return ResponseEntity.ok(alterada);
@@ -62,14 +83,18 @@ public class MissoesController {
         }
     }
 
-    /**
-     * Endpoint DELETE para excluir uma missão pelo ID.
-     *
-     * @param id ID da missão.
-     * @return mensagem de sucesso ou erro.
-     */
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deletarMissaoId(@PathVariable Long id) {
+    @Operation(
+            summary = "Deletar missão por ID",
+            description = "Remove uma missão com base no ID informado."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Missão deletada com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Missão não encontrada", content = @Content)
+    })
+    public ResponseEntity<String> deletarMissaoId(
+            @Parameter(description = "ID da missão a ser deletada") @PathVariable Long id
+    ) {
         if (missoesService.buscarPorId(id) != null) {
             missoesService.deletarMissoesPorId(id);
             return ResponseEntity.ok("Missão deletada com sucesso! ID: " + id);
