@@ -2,40 +2,28 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Ninja</title>
+    <title>Editar Missão</title>
     <link rel="stylesheet" th:href="@{/css/estilo.css}">
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <header>
-    <h1>✏️ Editar Ninja - Aldeia da Folha 🌿</h1>
+    <h1>✏️ Editar Missão - Vila Oculta da Folha 🍃</h1>
 </header>
 
 <div class="form-container">
-    <form th:action="@{'/ninjas/ui/editar/' + ${ninja.id}}" method="post" th:object="${ninja}">
+    <form th:action="@{'/missoes/ui/editar/' + ${missao.id}}" method="post" th:object="${missao}">
         <input type="hidden" th:field="*{id}"/>
 
-        <label>Nome:</label>
-        <input type="text" th:field="*{nome}" required/>
+        <label>Nome da Missão:</label>
+        <input type="text" th:field="*{nomeDaMissao}" required/>
 
-        <label>Email:</label>
-        <input type="email" th:field="*{email}" required/>
-
-        <label>Idade:</label>
-        <input type="number" th:field="*{idade}" required/>
-
-        <label>Rank:</label>
-        <input type="text" th:field="*{rank}" required/>
-
-        <label>URL da Imagem:</label>
-        <input type="text" th:field="*{imgUrl}" required/>
-
-        <label>ID da Missão:</label>
-        <input type="number" th:field="*{missoes.id}" />
+        <label>Dificuldade:</label>
+        <input type="text" th:field="*{dificuldade}" required/>
 
         <button type="submit">💾 Salvar Alterações</button>
-        <a th:href="@{/ninjas/ui/listar}" class="btn">🔙 Voltar</a>
+        <a th:href="@{/missoes/ui/listar}" class="btn">🔙 Voltar</a>
     </form>
 </div>
 
